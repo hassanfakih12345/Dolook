@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-// Static export has no server redirects; .htaccess also sends "/" to "/ar/".
+// Static export has no server redirects: .htaccess, the meta refresh in the
+// layout and this effect all send "/" to the Arabic home page.
 export default function RootPage() {
   const router = useRouter();
 
@@ -13,7 +14,7 @@ export default function RootPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-white text-sm text-neutral-500">
-      DOLOOK…
+      <a href="/ar/">DOLOOK…</a>
     </main>
   );
 }

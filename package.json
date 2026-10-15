@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve out",
-    "lint": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "next": "16.2.10",

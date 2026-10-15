@@ -19,7 +19,7 @@ export const clients: Client[] = [
     slug: "sar",
     name: {
       ar: "الخطوط الحديدية السعودية",
-      en: "Saudi Arabia Railways",
+      en: "Saudi Arabia Railways (SAR)",
     },
     logo: "/clients/sar.png",
   },
@@ -42,8 +42,8 @@ export const clients: Client[] = [
   {
     slug: "sab",
     name: {
-      ar: "البنك الأول",
-      en: "SAB",
+      ar: "البنك السعودي الأول (ساب)",
+      en: "Saudi Awwal Bank (SAB)",
     },
     logo: "/clients/sab.png",
   },
@@ -74,8 +74,8 @@ export const clients: Client[] = [
   {
     slug: "aljabr",
     name: {
-      ar: "الجبر",
-      en: "ALJABR",
+      ar: "مجموعة الجبر",
+      en: "Aljabr Group",
     },
     logo: "/clients/aljabr.png",
   },

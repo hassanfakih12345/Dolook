@@ -31,7 +31,7 @@ export const divisions: Division[] = [
       ar: [
         "مقاولات عامة وإنشاء كامل",
         "أعمال مدنية وهياكل",
-        "تشطيبات معمارية وFit-out",
+        "تشطيبات معمارية وتجهيزات داخلية (Fit-out)",
         "إدارة تنفيذ المشاريع",
       ],
       en: [
@@ -59,13 +59,13 @@ export const divisions: Division[] = [
         "صيانة دورية ووقائية",
         "تشغيل أنظمة المباني",
         "عقود صيانة طويلة الأمد",
-        "استجابة أعطال وصيانة تصحيحية",
+        "صيانة تصحيحية والاستجابة للأعطال",
       ],
       en: [
         "Preventive & scheduled maintenance",
         "Building systems operation",
-        "Long-term AMC contracts",
-        "Corrective maintenance response",
+        "Long-term annual maintenance contracts (AMC)",
+        "Corrective maintenance & breakdown response",
       ],
     },
     imageHint: "/projects/sipchem.png",
@@ -78,7 +78,7 @@ export const divisions: Division[] = [
       en: "Steel Buildings Division",
     },
     summary: {
-      ar: "تصميم وتنفيذ المنشآت والهياكل الحديدية للمصانع والمستودعات والهنجر الصناعية.",
+      ar: "تصميم وتنفيذ المنشآت والهياكل الحديدية للمصانع والمستودعات والهناجر الصناعية.",
       en: "Design and build of steel structures for factories, warehouses, and industrial hangars.",
     },
     scope: {
@@ -110,7 +110,7 @@ export const divisions: Division[] = [
     },
     scope: {
       ar: [
-        "واجهات Curtain Wall",
+        "واجهات زجاجية ستائرية (Curtain Wall)",
         "نوافذ وأبواب ألمنيوم",
         "كلادينج واجهات",
         "أنظمة زجاجية معمارية",

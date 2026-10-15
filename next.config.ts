@@ -5,6 +5,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
+  experimental: {
+    // Branded bilingual 404.html (src/app/global-not-found.tsx).
+    globalNotFound: true,
+  },
   images: {
     unoptimized: true,
     qualities: [75, 90],

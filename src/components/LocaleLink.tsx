@@ -6,14 +6,19 @@ type Props = {
   locale: Locale;
   className?: string;
   onClick?: () => void;
+  "aria-current"?: "page";
   children: React.ReactNode;
 };
 
-/** Link that prefixes `href` with the current locale (`/about` → `/en/about`). */
-export function LocaleLink({ href, locale, children, className, onClick }: Props) {
-  const localized = href === "/" ? `/${locale}` : `/${locale}${href}`;
+/**
+ * Link that prefixes `href` with the current locale (`/about` → `/en/about/`).
+ * Query and hash are kept after the trailing slash (`/about#ceo` → `/en/about/#ceo`).
+ */
+export function LocaleLink({ href, locale, children, ...rest }: Props) {
+  const [, path, suffix = ""] = href.match(/^([^?#]*)(.*)$/)!;
+  const base = path === "/" || path === "" ? `/${locale}/` : `/${locale}${path.replace(/\/$/, "")}/`;
   return (
-    <Link href={localized} className={className} onClick={onClick}>
+    <Link href={`${base}${suffix}`} {...rest}>
       {children}
     </Link>
   );

@@ -13,3 +13,4 @@ __MACOSX/
 *.pem
 .env*
 npm-debug.log*
+dolook-cpanel.zip

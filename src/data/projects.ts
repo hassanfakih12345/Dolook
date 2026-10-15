@@ -8,7 +8,8 @@ export type Project = {
   name: Localized;
   location: Localized;
   type: Localized;
-  area: string | null;
+  /** Built-up area in m², or null when not published. */
+  area: number | null;
   status: ProjectStatus;
   division: DivisionSlug;
   image: string;
@@ -30,7 +31,7 @@ export const projects: Project[] = [
       ar: "تشطيبات معمارية",
       en: "Architectural Finishing",
     },
-    area: "750 m²",
+    area: 750,
     status: "completed",
     division: "contracting",
     image: "/projects/salt.png",
@@ -40,7 +41,7 @@ export const projects: Project[] = [
     slug: "fadl-al-yahia-villa",
     name: {
       ar: "فيلا فضل اليحيى",
-      en: "Fadl Al-Yahia Villa",
+      en: "Fadl Al Yahya Villa",
     },
     location: {
       ar: "الدمام",
@@ -50,7 +51,7 @@ export const projects: Project[] = [
       ar: "إنشاء كامل",
       en: "Total Construction",
     },
-    area: "300 m²",
+    area: 300,
     status: "completed",
     division: "contracting",
     image: "/projects/fadl-villa.png",
@@ -59,18 +60,18 @@ export const projects: Project[] = [
   {
     slug: "808-square",
     name: {
-      ar: "808 Square Strip Mall",
+      ar: "مجمع 808 سكوير التجاري",
       en: "808 Square Strip Mall",
     },
     location: {
-      ar: "واجهة الدمام",
+      ar: "الواجهة البحرية — الدمام",
       en: "Dammam Seafront",
     },
     type: {
       ar: "تشطيبات معمارية",
       en: "Architectural Finishing",
     },
-    area: "3000 m²",
+    area: 3000,
     status: "completed",
     division: "aluminum-facades",
     image: "/projects/808-square.png",
@@ -106,7 +107,7 @@ export const projects: Project[] = [
       en: "Dammam",
     },
     type: {
-      ar: "MEP وتشطيبات",
+      ar: "أعمال كهروميكانيكية وتشطيبات",
       en: "MEP & Architectural Finishing",
     },
     area: null,
@@ -123,10 +124,10 @@ export const projects: Project[] = [
     },
     location: {
       ar: "القطيف",
-      en: "Al-Qateef",
+      en: "Al Qatif",
     },
     type: {
-      ar: "MEP وتشطيبات",
+      ar: "أعمال كهروميكانيكية وتشطيبات",
       en: "MEP & Architectural Finishing",
     },
     area: null,
@@ -138,7 +139,7 @@ export const projects: Project[] = [
     slug: "ibrahim-villa",
     name: {
       ar: "فيلا إبراهيم الإبراهيم",
-      en: "Villa Mr. Ibrahim Al-Ibrahim",
+      en: "Ibrahim Al-Ibrahim Villa",
     },
     location: {
       ar: "الدمام",
@@ -148,7 +149,7 @@ export const projects: Project[] = [
       ar: "إنشاء كامل",
       en: "Total Construction",
     },
-    area: "600 m²",
+    area: 600,
     status: "completed",
     division: "contracting",
     image: "/projects/ibrahim-villa.png",
@@ -156,8 +157,8 @@ export const projects: Project[] = [
   {
     slug: "azizia-pool",
     name: {
-      ar: "مسبح العزيزية",
-      en: "Al Azizia Khobar Pool",
+      ar: "مسبح العزيزية — الخبر",
+      en: "Al Aziziyah Pool",
     },
     location: {
       ar: "الخبر",
@@ -167,7 +168,7 @@ export const projects: Project[] = [
       ar: "أعمال مسابح",
       en: "Swimming Pool Works",
     },
-    area: "250 m²",
+    area: 250,
     status: "completed",
     division: "contracting",
     image: "/projects/azizia-pool.png",
@@ -175,8 +176,8 @@ export const projects: Project[] = [
   {
     slug: "erb-fitout",
     name: {
-      ar: "ERB Fitout",
-      en: "ERB Fitout",
+      ar: "تجهيزات ERB الداخلية",
+      en: "ERB Fit-out",
     },
     location: {
       ar: "الخبر",
@@ -186,7 +187,7 @@ export const projects: Project[] = [
       ar: "تشطيبات معمارية",
       en: "Architectural Finishing",
     },
-    area: "4000 m²",
+    area: 4000,
     status: "completed",
     division: "contracting",
     image: "/projects/erb-fitout.png",
@@ -196,7 +197,7 @@ export const projects: Project[] = [
     slug: "moc-theatre",
     name: {
       ar: "مسرح وزارة الثقافة — الخبر",
-      en: "MOC Khobar Theatre",
+      en: "Ministry of Culture Theatre — Al Khobar",
     },
     location: {
       ar: "الخبر",
@@ -206,7 +207,7 @@ export const projects: Project[] = [
       ar: "تشطيبات معمارية",
       en: "Architectural Finishing",
     },
-    area: "350 m²",
+    area: 350,
     status: "completed",
     division: "contracting",
     image: "/projects/moc-theatre.png",
@@ -223,9 +224,9 @@ export const projects: Project[] = [
     },
     type: {
       ar: "إنشاء كامل",
-      en: "Complete Construction",
+      en: "Total Construction",
     },
-    area: "40 m²",
+    area: 40,
     status: "completed",
     division: "contracting",
     image: "/projects/biryanak.png",
@@ -241,10 +242,10 @@ export const projects: Project[] = [
       en: "Al Khobar",
     },
     type: {
-      ar: "سكاي لايت وتشطيبات",
+      ar: "أسقف زجاجية (Skylight) وتشطيبات",
       en: "Skylight & Architectural Finishing",
     },
-    area: "1500 m²",
+    area: 1500,
     status: "completed",
     division: "aluminum-facades",
     image: "/projects/sipchem.png",
@@ -257,14 +258,14 @@ export const projects: Project[] = [
       en: "Al Bassam Paper Recycling Factory",
     },
     location: {
-      ar: "المدينة الصناعية الثانية — الظهران",
-      en: "2nd Industrial City — Dhahran",
+      ar: "المدينة الصناعية الثانية — الدمام",
+      en: "2nd Industrial City — Dammam",
     },
     type: {
       ar: "إنشاء كامل",
-      en: "Total Construction Works",
+      en: "Total Construction",
     },
-    area: "875 m²",
+    area: 875,
     status: "ongoing",
     division: "steel-buildings",
     image: "/projects/bassam-factory.png",
@@ -282,9 +283,9 @@ export const projects: Project[] = [
     },
     type: {
       ar: "إنشاء كامل",
-      en: "Total Construction Works",
+      en: "Total Construction",
     },
-    area: "350 m²",
+    area: 350,
     status: "ongoing",
     division: "contracting",
     image: "/projects/kawthar-villa.png",
@@ -293,4 +294,9 @@ export const projects: Project[] = [
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
+}
+
+export function formatArea(area: number | null, locale: "ar" | "en") {
+  if (area === null) return null;
+  return `${area.toLocaleString("en-US")} ${locale === "ar" ? "م²" : "m²"}`;
 }

@@ -1,65 +1,125 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LocaleLink } from "@/components/LocaleLink";
+import { ProjectCard, StatusBadge } from "@/components/ProjectCard";
+import { Arrow } from "@/components/ui";
 import { getDivision } from "@/data/divisions";
-import { getProject, projects } from "@/data/projects";
+import { formatArea, getProject, projects } from "@/data/projects";
 import { locales, resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/metadata";
+
+type Params = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => projects.map((p) => ({ locale, slug: p.slug })));
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+export async function generateMetadata({ params }: Params) {
+  const { locale } = await resolveLocale(params);
+  const project = getProject((await params).slug);
+  if (!project) return {};
+  return pageMetadata({
+    locale,
+    path: `/projects/${project.slug}`,
+    title: project.name[locale],
+    description: `${project.type[locale]} — ${project.location[locale]}`,
+    image: project.image,
+  });
+}
+
+export default async function ProjectPage({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);
   const project = getProject((await params).slug);
   if (!project) notFound();
 
   const division = getDivision(project.division);
-  const facts = [
-    [dict.projects.location, project.location[locale]],
-    [dict.projects.type, project.type[locale]],
-    [dict.projects.division, division?.title[locale] ?? "—"],
-    [dict.projects.area, project.area ?? "—"],
-    [dict.projects.status, project.status === "completed" ? dict.projects.completed : dict.projects.ongoing],
+  const sameDivision = projects.filter((p) => p.slug !== project.slug && p.division === project.division);
+  const more = [...sameDivision, ...projects.filter((p) => p.slug !== project.slug && p.division !== project.division)].slice(0, 3);
+
+  const facts: { label: string; value: React.ReactNode }[] = [
+    { label: dict.projects.location, value: project.location[locale] },
+    { label: dict.projects.type, value: project.type[locale] },
+    {
+      label: dict.projects.division,
+      value: division ? (
+        <LocaleLink href={`/services/${division.slug}`} locale={locale} className="hover:text-dolook hover:underline">
+          {division.title[locale]}
+        </LocaleLink>
+      ) : (
+        "—"
+      ),
+    },
+    { label: dict.projects.area, value: formatArea(project.area, locale) ?? "—" },
+    { label: dict.projects.status, value: project.status === "completed" ? dict.projects.completed : dict.projects.ongoing },
   ];
 
   return (
     <div>
       <section className="relative min-h-[50vh] overflow-hidden">
-        <Image src={project.image} alt={project.name[locale]} fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-dolook-dark/65" />
-        <div className="relative mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-white">{project.name[locale]}</h1>
+        <Image src={project.image} alt="" fill className="object-cover" priority sizes="100vw" />
+        <div className="absolute inset-0 bg-dolook-dark/75" />
+        <div className="relative mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 pt-10 sm:px-6 lg:px-8">
+          <Breadcrumbs
+            locale={locale}
+            dict={dict}
+            invert
+            items={[{ href: "/projects", label: dict.nav.projects }, { label: project.name[locale] }]}
+          />
+          <StatusBadge status={project.status} dict={dict} />
+          <h1 className="mt-4 text-4xl font-bold text-white">{project.name[locale]}</h1>
           <p className="mt-3 text-white/85">{project.location[locale]}</p>
         </div>
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map(([label, value]) => (
-            <div key={label} className="border border-line bg-surface p-5">
-              <dt className="text-xs font-semibold tracking-wide text-dolook uppercase">{label}</dt>
-              <dd className="mt-2 text-base font-semibold text-dolook-dark">{value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="relative aspect-[16/9] overflow-hidden border border-line bg-surface">
+            <Image
+              src={project.image}
+              alt={project.name[locale]}
+              fill
+              className="object-contain"
+              sizes="(max-width:1024px) 100vw, 55vw"
+            />
+          </div>
+          <dl className="grid content-start gap-4 sm:grid-cols-2">
+            {facts.map(({ label, value }) => (
+              <div key={label} className="border border-line bg-surface p-5">
+                <dt className="text-xs font-semibold tracking-wide text-dolook uppercase">{label}</dt>
+                <dd className="mt-2 text-base font-semibold text-dolook-dark">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
 
         <div className="mt-12 flex flex-wrap gap-3">
           <LocaleLink
             href="/projects"
             locale={locale}
-            className="rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-dolook-dark"
+            className="inline-flex items-center gap-2 rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-dolook-dark transition hover:border-dolook/40"
           >
-            ← {dict.common.back}
+            <Arrow direction="back" /> {dict.projects.allProjects}
           </LocaleLink>
           <LocaleLink
-            href="/contact"
+            href={`/contact?division=${project.division}`}
             locale={locale}
-            className="rounded-md bg-dolook px-5 py-2.5 text-sm font-semibold text-white"
+            className="rounded-md bg-dolook px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-dolook-soft"
           >
             {dict.nav.quote}
           </LocaleLink>
         </div>
+
+        {more.length > 0 && (
+          <section className="mt-20 border-t border-line pt-12">
+            <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.more}</h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {more.map((p) => (
+                <ProjectCard key={p.slug} project={p} locale={locale} dict={dict} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

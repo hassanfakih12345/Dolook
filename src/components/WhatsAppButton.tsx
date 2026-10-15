@@ -1,12 +1,13 @@
 import { whatsappUrl } from "@/data/company";
 
-export function WhatsAppButton() {
+export function WhatsAppButton({ label }: { label: string }) {
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="WhatsApp"
+      aria-label={label}
+      title={label}
       className="fixed bottom-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105 end-5"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current" aria-hidden>
