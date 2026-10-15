@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --dolook-blue: #1b4f9c;
+  --dolook-blue-dark: #0b1f3a;
+  --dolook-blue-soft: #2f6bb8;
+  --dolook-gray: #4a4a4a;
+  --dolook-gray-light: #f2f4f7;
+  --dolook-line: #d8dee8;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-dolook: var(--dolook-blue);
+  --color-dolook-dark: var(--dolook-blue-dark);
+  --color-dolook-soft: var(--dolook-blue-soft);
+  --color-muted: var(--dolook-gray);
+  --color-surface: var(--dolook-gray-light);
+  --color-line: var(--dolook-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] {
+  font-family: var(--font-ibm-plex-arabic), var(--font-outfit), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--dolook-blue) 25%, white);
+}
+
+.dot-mesh {
+  background-image: radial-gradient(circle, rgba(27, 79, 156, 0.18) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(120deg, rgba(11, 31, 58, 0.82) 0%, rgba(11, 31, 58, 0.45) 48%, rgba(11, 31, 58, 0.2) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(11, 31, 58, 0.55));
+}
