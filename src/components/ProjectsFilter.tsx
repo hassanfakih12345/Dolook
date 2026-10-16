@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { divisions, type DivisionSlug } from "@/data/divisions";
-import type { Project, ProjectStatus } from "@/data/projects";
+import { projectStatuses, type Project, type ProjectStatus } from "@/data/projects";
 import type { Dictionary } from "@/lib/i18n/en";
 import type { Locale } from "@/lib/i18n/config";
 import { ProjectCard } from "./ProjectCard";
@@ -25,7 +25,7 @@ export function ProjectsFilter({ projects, locale, dict }: Props) {
     const params = new URLSearchParams(window.location.search);
     const s = params.get("status");
     const d = params.get("division");
-    if (s === "completed" || s === "ongoing") setStatus(s);
+    if (projectStatuses.includes(s as ProjectStatus)) setStatus(s as ProjectStatus);
     if (d && divisions.some((x) => x.slug === d)) setDivision(d as DivisionSlug);
   }, []);
 
@@ -48,10 +48,12 @@ export function ProjectsFilter({ projects, locale, dict }: Props) {
   const countFor = (d: DivisionFilter) =>
     projects.filter((p) => (status === "all" || p.status === status) && (d === "all" || p.division === d)).length;
 
+  // Only offer statuses that at least one project has.
   const statuses: [StatusFilter, string][] = [
     ["all", dict.projects.all],
-    ["completed", dict.projects.completed],
-    ["ongoing", dict.projects.ongoing],
+    ...projectStatuses
+      .filter((s) => projects.some((p) => p.status === s))
+      .map((s): [StatusFilter, string] => [s, dict.projects[s]]),
   ];
 
   return (

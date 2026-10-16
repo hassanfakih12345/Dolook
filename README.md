@@ -20,6 +20,7 @@ npm run typecheck  # فحص أخطاء TypeScript
 |---|---|
 | نصوص الموقع (عناوين، أزرار، فقرات، وصف السيو) | `src/lib/i18n/ar.ts` و `src/lib/i18n/en.ts` |
 | المشاريع (`featured: true` = بيظهر بالرئيسية) | `src/data/projects.ts` + الصور بـ `public/projects/` |
+| مشروع بعرض كامل (نبذة، معرض صور، مخططات، توزيع مساحات) | نفس الملف: الحقول `summary` و `gallery` و `drawings` و `spaces` — شوف مشروع `office-interior-design` كمثال |
 | الأقسام (المقاولات، الصيانة...) | `src/data/divisions.ts` |
 | العملاء | `src/data/clients.ts` + اللوغوهات بـ `public/clients/` |
 | العنوان، الهاتف، الإيميل، واتساب، السجل التجاري، عدد الموظفين | `src/data/company.ts` |

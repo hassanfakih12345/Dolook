@@ -7,16 +7,18 @@ import { LocaleLink } from "./LocaleLink";
 
 type Props = { project: Project; locale: Locale; dict: Dictionary };
 
+const badgeStyles: Record<Project["status"], { box: string; dot: string }> = {
+  completed: { box: "bg-white/95 text-dolook-dark", dot: "bg-emerald-600" },
+  ongoing: { box: "bg-amber-400 text-dolook-dark", dot: "bg-dolook-dark" },
+  design: { box: "bg-dolook text-white", dot: "bg-white" },
+};
+
 export function StatusBadge({ status, dict }: { status: Project["status"]; dict: Dictionary }) {
-  const completed = status === "completed";
+  const style = badgeStyles[status];
   return (
-    <span
-      className={`inline-flex w-fit items-center gap-1.5 px-2.5 py-1 text-xs font-semibold ${
-        completed ? "bg-white/95 text-dolook-dark" : "bg-amber-400 text-dolook-dark"
-      }`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${completed ? "bg-emerald-600" : "bg-dolook-dark"}`} aria-hidden />
-      {completed ? dict.projects.completed : dict.projects.ongoing}
+    <span className={`inline-flex w-fit items-center gap-1.5 px-2.5 py-1 text-xs font-semibold ${style.box}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} aria-hidden />
+      {dict.projects[status]}
     </span>
   );
 }

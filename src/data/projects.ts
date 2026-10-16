@@ -1,7 +1,11 @@
 import type { DivisionSlug } from "./divisions";
 import type { Localized } from "@/lib/i18n/config";
 
-export type ProjectStatus = "completed" | "ongoing";
+export type ProjectStatus = "completed" | "ongoing" | "design";
+
+export const projectStatuses: ProjectStatus[] = ["completed", "ongoing", "design"];
+
+export type ProjectImage = { src: string; caption: Localized };
 
 export type Project = {
   slug: string;
@@ -14,9 +18,68 @@ export type Project = {
   division: DivisionSlug;
   image: string;
   featured?: boolean;
+  /** Optional detail-page content, used by projects that have a full presentation. */
+  summary?: Localized;
+  gallery?: ProjectImage[];
+  drawings?: ProjectImage[];
+  spaces?: { name: Localized; area: number }[];
 };
 
 export const projects: Project[] = [
+  {
+    slug: "office-interior-design",
+    name: {
+      ar: "التصميم الداخلي لمكاتب إدارية",
+      en: "Corporate Office Interior",
+    },
+    location: {
+      ar: "المملكة العربية السعودية",
+      en: "Saudi Arabia",
+    },
+    type: {
+      ar: "تصميم داخلي وتجهيزات مكتبية",
+      en: "Interior Design & Fit-out",
+    },
+    area: 233,
+    status: "design",
+    division: "contracting",
+    image: "/projects/office-interior/open-work-2.jpg",
+    featured: true,
+    summary: {
+      ar: "تصميم داخلي متكامل لطابق مكاتب إدارية بمساحة 233 م²: قلب منحنٍ بفواصل زجاجية يلتف حول مساحة عمل مفتوحة، ويضم ثمانية مكاتب خاصة ومكتباً للمدير ومركز اتصال وبوفيه واستراحة للموظفات ودورات مياه. أعمدة مكسوّة بخشب الجوز، وزجاج مصنفر، وأرضيات بملمس الحجر، وإضاءة خطية متصلة تمنح المكان طابعاً هادئاً وراقياً.",
+      en: "A complete interior design for a 233 m² corporate office floor: a curved, glass-partitioned core wraps around an open workspace, with eight private offices, a manager office, a call center, a pantry, a women's break room and washrooms. Walnut-clad columns, frosted glass, stone-look flooring and continuous linear lighting give the floor a calm, premium character.",
+    },
+    gallery: [
+      { src: "/projects/office-interior/open-work-2.jpg", caption: { ar: "مساحة العمل المفتوحة", en: "Open workspace" } },
+      { src: "/projects/office-interior/open-work-1.jpg", caption: { ar: "مساحة العمل المفتوحة والمكاتب الزجاجية", en: "Open workspace and glass-partitioned offices" } },
+      { src: "/projects/office-interior/open-work-3.jpg", caption: { ar: "الممر المنحني والإضاءة الخطية", en: "Curved corridor and linear lighting" } },
+      { src: "/projects/office-interior/manager-office.jpg", caption: { ar: "مكتب المدير", en: "Manager office" } },
+      { src: "/projects/office-interior/office-2.jpg", caption: { ar: "المكتب 2", en: "Office 2" } },
+      { src: "/projects/office-interior/office-3.jpg", caption: { ar: "المكتب 3", en: "Office 3" } },
+      { src: "/projects/office-interior/office-5.jpg", caption: { ar: "المكتب 5", en: "Office 5" } },
+      { src: "/projects/office-interior/office-8-1.jpg", caption: { ar: "المكتب 8", en: "Office 8" } },
+      { src: "/projects/office-interior/office-8-2.jpg", caption: { ar: "المكتب 8", en: "Office 8" } },
+      { src: "/projects/office-interior/workstations.jpg", caption: { ar: "محطات العمل", en: "Workstations" } },
+      { src: "/projects/office-interior/pantry.jpg", caption: { ar: "البوفيه", en: "Pantry" } },
+    ],
+    drawings: [
+      { src: "/projects/office-interior/plan.png", caption: { ar: "المخطط الأفقي", en: "Floor plan" } },
+      { src: "/projects/office-interior/axonometric.png", caption: { ar: "المنظور المحوري", en: "Axonometric view" } },
+    ],
+    spaces: [
+      { name: { ar: "مكتب المدير", en: "Manager office" }, area: 19.62 },
+      { name: { ar: "المكتب 1", en: "Office 1" }, area: 19.62 },
+      { name: { ar: "المكتب 2", en: "Office 2" }, area: 14.62 },
+      { name: { ar: "المكتب 3", en: "Office 3" }, area: 12.9 },
+      { name: { ar: "المكتب 4", en: "Office 4" }, area: 14.62 },
+      { name: { ar: "المكتب 5", en: "Office 5" }, area: 13.44 },
+      { name: { ar: "المكتب 6", en: "Office 6" }, area: 15.79 },
+      { name: { ar: "مركز الاتصال", en: "Call center" }, area: 14.77 },
+      { name: { ar: "المكتب 8", en: "Office 8" }, area: 11.63 },
+      { name: { ar: "البوفيه ومساحة العمل المفتوحة", en: "Pantry & open workspace" }, area: 16.73 },
+      { name: { ar: "استراحة الموظفات", en: "Women break room" }, area: 5 },
+    ],
+  },
   {
     slug: "salt-khobar",
     name: {

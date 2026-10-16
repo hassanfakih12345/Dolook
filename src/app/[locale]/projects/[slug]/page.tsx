@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LocaleLink } from "@/components/LocaleLink";
 import { ProjectCard, StatusBadge } from "@/components/ProjectCard";
+import { ProjectGallery } from "@/components/ProjectGallery";
 import { Arrow } from "@/components/ui";
 import { getDivision } from "@/data/divisions";
 import { formatArea, getProject, projects } from "@/data/projects";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: Params) {
     locale,
     path: `/projects/${project.slug}`,
     title: project.name[locale],
-    description: `${project.type[locale]} — ${project.location[locale]}`,
+    description: project.summary?.[locale] ?? `${project.type[locale]} — ${project.location[locale]}`,
     image: project.image,
   });
 }
@@ -51,7 +52,7 @@ export default async function ProjectPage({ params }: Params) {
       ),
     },
     { label: dict.projects.area, value: formatArea(project.area, locale) ?? "—" },
-    { label: dict.projects.status, value: project.status === "completed" ? dict.projects.completed : dict.projects.ongoing },
+    { label: dict.projects.status, value: dict.projects[project.status] },
   ];
 
   return (
@@ -74,15 +75,22 @@ export default async function ProjectPage({ params }: Params) {
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="relative aspect-[16/9] overflow-hidden border border-line bg-surface">
-            <Image
-              src={project.image}
-              alt={project.name[locale]}
-              fill
-              className="object-contain"
-              sizes="(max-width:1024px) 100vw, 55vw"
-            />
-          </div>
+          {project.summary ? (
+            <div>
+              <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.overview}</h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted">{project.summary[locale]}</p>
+            </div>
+          ) : (
+            <div className="relative aspect-[16/9] overflow-hidden border border-line bg-surface">
+              <Image
+                src={project.image}
+                alt={project.name[locale]}
+                fill
+                className="object-contain"
+                sizes="(max-width:1024px) 100vw, 55vw"
+              />
+            </div>
+          )}
           <dl className="grid content-start gap-4 sm:grid-cols-2">
             {facts.map(({ label, value }) => (
               <div key={label} className="border border-line bg-surface p-5">
@@ -92,6 +100,67 @@ export default async function ProjectPage({ params }: Params) {
             ))}
           </dl>
         </div>
+
+        {project.gallery && (
+          <section className="mt-16">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.gallery}</h2>
+              <p className="text-sm text-muted">
+                {project.gallery.length} {dict.projects.images}
+                {project.status === "design" && ` · ${dict.projects.renders}`}
+              </p>
+            </div>
+            <div className="mt-6">
+              <ProjectGallery images={project.gallery} locale={locale} dict={dict} />
+            </div>
+          </section>
+        )}
+
+        {(project.drawings || project.spaces) && (
+          <section className="mt-16 space-y-16">
+            {project.drawings && (
+              <div>
+                <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.drawings}</h2>
+                <div className="mt-6">
+                  <ProjectGallery images={project.drawings} locale={locale} dict={dict} contain />
+                </div>
+              </div>
+            )}
+            {project.spaces && (
+              <div className="max-w-2xl">
+                <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.spaces}</h2>
+                <table className="mt-6 w-full border border-line text-sm">
+                  <thead className="bg-surface text-xs tracking-wide text-dolook uppercase">
+                    <tr>
+                      <th scope="col" className="px-4 py-3 text-start font-semibold">
+                        {dict.projects.space}
+                      </th>
+                      <th scope="col" className="px-4 py-3 text-end font-semibold">
+                        m²
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {project.spaces.map((space) => (
+                      <tr key={space.name.en} className="border-t border-line">
+                        <td className="px-4 py-2.5 text-dolook-dark">{space.name[locale]}</td>
+                        <td className="px-4 py-2.5 text-end tabular-nums text-muted">{space.area}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  {project.area !== null && (
+                    <tfoot className="border-t-2 border-dolook/30 bg-surface font-semibold text-dolook-dark">
+                      <tr>
+                        <td className="px-4 py-3">{dict.projects.total}</td>
+                        <td className="px-4 py-3 text-end tabular-nums">{project.area}</td>
+                      </tr>
+                    </tfoot>
+                  )}
+                </table>
+              </div>
+            )}
+          </section>
+        )}
 
         <div className="mt-12 flex flex-wrap gap-3">
           <LocaleLink
