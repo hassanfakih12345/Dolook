@@ -3,7 +3,7 @@ import { fontVariables } from "@/lib/fonts";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "DOLOOK Contracting Company",
+  title: "DOLOOK Construction Company",
   robots: { index: false },
 };
 

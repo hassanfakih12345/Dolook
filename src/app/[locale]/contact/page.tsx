@@ -2,7 +2,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 import { PageHero } from "@/components/PageHero";
 import { Ltr, container, section } from "@/components/ui";
-import { company, whatsappUrl } from "@/data/company";
+import { company, mapQuery, whatsappUrl } from "@/data/company";
 import { resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -12,8 +12,6 @@ export async function generateMetadata({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);
   return pageMetadata({ locale, path: "/contact", title: dict.contact.title, description: dict.meta.contact });
 }
-
-const mapQuery = encodeURIComponent("King Fahd Bin Abdulaziz Road, Dammam, Saudi Arabia");
 
 export default async function ContactPage({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);

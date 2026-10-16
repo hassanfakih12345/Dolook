@@ -1,14 +1,14 @@
 export const en = {
   meta: {
-    siteName: "DOLOOK Contracting Company",
+    siteName: "DOLOOK Construction Company",
     description:
-      "DOLOOK Contracting Company — integrated contracting, maintenance & operation, steel buildings, and aluminum facade works in Saudi Arabia since 2001.",
+      "DOLOOK Construction Company — integrated contracting, maintenance & operation, steel buildings, and aluminum facade works in Saudi Arabia since 2001.",
     about: "Established in Dammam in 2001 — vision, mission, values, and the CEO message.",
     services: "Contracting, maintenance & operation, steel buildings, and aluminum facade works.",
     projects: "Completed and ongoing DOLOOK projects across the Eastern Province.",
     clients: "Government entities, banks, and leading companies that trust DOLOOK.",
     certificates: "Commercial registration, chamber membership, national address, Zakat, and VAT documentation.",
-    contact: "Request a quote or reach DOLOOK's head office in Dammam.",
+    contact: "Request a quote or reach DOLOOK's head office in Al Khobar.",
   },
   nav: {
     home: "Home",
@@ -132,14 +132,10 @@ export const en = {
   certificates: {
     title: "Certificates & Compliance",
     sub: "Official documentation reflecting our commitment to compliance and transparency.",
-    items: [
-      "Commercial Registration",
-      "Chamber of Commerce Membership",
-      "National Address",
-      "Zakat Certificate",
-      "VAT Certificate",
-    ],
-    request: "Copies of these documents are available on request.",
+    request: "Each document opens as the official PDF. For certified copies, contact us.",
+    view: "View document",
+    download: "Download PDF",
+    nationalAddress: "National address",
   },
   contact: {
     title: "Contact Us",
@@ -165,7 +161,7 @@ export const en = {
     messageTitle: "DOLOOK quote request",
   },
   footer: {
-    tagline: "Integrated contracting since 2001 — Dammam, Saudi Arabia.",
+    tagline: "Integrated contracting since 2001 — Al Khobar, Saudi Arabia.",
     rights: "All rights reserved.",
     cr: "C.R.",
     vat: "VAT",
