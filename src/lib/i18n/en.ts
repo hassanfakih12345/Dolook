@@ -48,6 +48,8 @@ export const en = {
     ceoTitle: "CEO Message",
     ceoTeaser: "We take pride in what we deliver and remain committed to excellence and national development.",
     ceoLink: "Read the full message",
+    exploreTitle: "Explore DOLOOK",
+    exploreSub: "Everything about the company, its divisions and its work — each on its own page.",
     finalCtaTitle: "Planning a project?",
     finalCtaSub: "Talk to us about scope, schedule, and pricing.",
   },

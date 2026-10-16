@@ -1,9 +1,6 @@
 import Image from "next/image";
-import { FeaturedTile } from "@/components/FeaturedTile";
-import { QuoteIcon } from "@/components/icons";
 import { LocaleLink } from "@/components/LocaleLink";
-import { Arrow, ArrowLink, Button, Ltr, NumberBadge, SectionHeading, container, pad2, section } from "@/components/ui";
-import { clients } from "@/data/clients";
+import { Arrow, Button, Ltr, NumberBadge, SectionHeading, container, pad2, section } from "@/components/ui";
 import { company, yearsOfExperience } from "@/data/company";
 import { divisions } from "@/data/divisions";
 import { projects } from "@/data/projects";
@@ -18,7 +15,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale, dict } = await resolveLocale(params);
   const t = dict.home;
-  const featured = projects.filter((p) => p.featured).slice(0, 5);
+
+  const pages = [
+    { href: "/about", title: dict.nav.about, text: dict.meta.about, image: "/projects/rch-al-khobar/01.jpg" },
+    { href: "/services", title: dict.nav.services, text: dict.meta.services, image: "/projects/akt-head-office/02.jpg" },
+    { href: "/projects", title: dict.nav.projects, text: dict.meta.projects, image: "/projects/office-interior/open-work-2.jpg" },
+    { href: "/clients", title: dict.nav.clients, text: dict.meta.clients, image: "/projects/808-square/01.jpg" },
+    { href: "/certificates", title: dict.nav.certificates, text: dict.meta.certificates, image: null },
+    { href: "/contact", title: dict.nav.contact, text: dict.meta.contact, image: null },
+  ];
 
   const stats = [
     { value: `${yearsOfExperience()}+`, label: t.statsYear },
@@ -102,166 +107,42 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </dl>
       </section>
 
-      {/* About + CEO */}
-      <section className={section}>
-        <div className={`${container} grid items-center gap-12 lg:grid-cols-2 lg:gap-16`}>
-          <div>
-            <SectionHeading eyebrow={dict.nav.about} title={dict.about.title} sub={dict.about.intro} />
-            <figure className="relative mt-8 bg-dolook-dark p-6 text-white sm:p-8">
-              <QuoteIcon className="absolute -top-5 start-6 h-10 w-10 text-dolook" />
-              <blockquote className="text-lg font-semibold leading-relaxed sm:text-xl">{t.ceoTeaser}</blockquote>
-              <figcaption className="mt-4 text-sm text-white/70">
-                {company.ceo[locale]} — {dict.about.ceoRole}
-              </figcaption>
-            </figure>
-            <div className="mt-6">
-              <ArrowLink href="/about" locale={locale}>
-                {t.ceoLink}
-              </ArrowLink>
-            </div>
-          </div>
-          <div className="relative grid grid-cols-5 gap-3 sm:gap-4">
-            <div className="relative col-span-3 aspect-[3/4] overflow-hidden">
-              <Image
-                src="/projects/rch-al-khobar/01.jpg"
-                alt={projects.find((p) => p.slug === "rch-al-khobar")?.name[locale] ?? ""}
-                fill
-                className="object-cover"
-                sizes="(max-width:1024px) 60vw, 30vw"
-              />
-            </div>
-            <div className="col-span-2 flex flex-col gap-3 pt-10 sm:gap-4 sm:pt-16">
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <Image
-                  src="/projects/akt-head-office/01.jpg"
-                  alt={projects.find((p) => p.slug === "akt-head-office")?.name[locale] ?? ""}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:1024px) 40vw, 20vw"
-                />
-              </div>
-              <div className="bg-dolook p-4 text-white sm:p-5">
-                <p className="text-3xl font-bold sm:text-4xl">
-                  <Ltr>{company.founded}</Ltr>
-                </p>
-                <p className="mt-1 text-xs text-white/80 sm:text-sm">{dict.footer.tagline}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Divisions */}
-      <section className={`bg-surface ${section}`}>
-        <div className={container}>
-          <SectionHeading
-            eyebrow={dict.nav.services}
-            title={t.divisionsTitle}
-            sub={t.divisionsSub}
-            action={
-              <ArrowLink href="/services" locale={locale}>
-                {dict.common.learnMore}
-              </ArrowLink>
-            }
-          />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {divisions.map((d) => (
-              <LocaleLink
-                key={d.slug}
-                href={`/services/${d.slug}`}
-                locale={locale}
-                className="group flex flex-col overflow-hidden border border-line bg-white transition hover:border-dolook/40 hover:shadow-[0_20px_50px_-28px_rgba(11,31,58,0.45)]"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={d.imageHint}
-                    alt=""
-                    fill
-                    className="object-cover transition duration-700 group-hover:scale-105"
-                    sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
-                  />
-                  <NumberBadge n={d.number} className="absolute start-4 top-4" />
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-lg font-bold text-dolook-dark group-hover:text-dolook">{d.title[locale]}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{d.summary[locale]}</p>
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-dolook">
-                    {dict.common.learnMore} <Arrow />
-                  </span>
-                </div>
-              </LocaleLink>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured projects — bento grid */}
+      {/* Site directory — every section lives on its own page */}
       <section className={section}>
         <div className={container}>
-          <SectionHeading
-            eyebrow={dict.nav.projects}
-            title={t.featuredTitle}
-            sub={t.featuredSub}
-            action={
-              <ArrowLink href="/projects" locale={locale}>
-                {t.viewAll}
-              </ArrowLink>
-            }
-          />
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:auto-rows-[260px] lg:grid-cols-4">
-            {featured.map((project, i) => (
-              <FeaturedTile
-                key={project.slug}
-                project={project}
-                locale={locale}
-                dict={dict}
-                large={i === 0}
-                className={i === 0 ? "min-h-80 md:col-span-2 lg:row-span-2" : ""}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sectors */}
-      <section className="relative overflow-hidden bg-dolook-dark py-16 text-white sm:py-20">
-        <div className="blueprint pointer-events-none absolute inset-0" aria-hidden />
-        <div className={`${container} relative`}>
-          <SectionHeading invert eyebrow="DOLOOK" title={t.sectorsTitle} />
-          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-white/15 bg-white/15 lg:grid-cols-4">
-            {t.sectors.map((sector, i) => (
-              <li key={sector} className="flex min-h-28 flex-col justify-between gap-3 bg-dolook-dark px-5 py-6">
-                <span className="text-xs font-bold tracking-wider text-white/45">{pad2(i + 1)}</span>
-                <span className="text-base font-semibold sm:text-lg">{sector}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Clients */}
-      <section className={section}>
-        <div className={container}>
-          <SectionHeading
-            eyebrow={dict.nav.clients}
-            title={t.clientsTitle}
-            sub={t.clientsSub}
-            action={
-              <ArrowLink href="/clients" locale={locale}>
-                {t.clientsLink}
-              </ArrowLink>
-            }
-          />
-          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line sm:grid-cols-3 lg:grid-cols-5">
-            {clients.map((client) => (
-              <li key={client.slug} className="group flex h-24 items-center justify-center bg-white px-5 sm:h-28" title={client.name[locale]}>
-                <Image
-                  src={client.logo}
-                  alt={client.name[locale]}
-                  width={180}
-                  height={72}
-                  className="max-h-12 w-auto max-w-full object-contain opacity-70 grayscale transition group-hover:opacity-100 group-hover:grayscale-0 sm:max-h-14"
-                />
+          <SectionHeading eyebrow={company.name} title={t.exploreTitle} sub={t.exploreSub} />
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {pages.map((page, i) => (
+              <li key={page.href}>
+                <LocaleLink
+                  href={page.href}
+                  locale={locale}
+                  className="group relative flex h-full min-h-56 flex-col justify-end overflow-hidden bg-dolook-dark p-6 text-white sm:min-h-72 sm:p-7"
+                >
+                  {page.image ? (
+                    <>
+                      <Image
+                        src={page.image}
+                        alt=""
+                        fill
+                        className="object-cover transition duration-700 group-hover:scale-105"
+                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dolook-dark via-dolook-dark/60 to-dolook-dark/10" />
+                    </>
+                  ) : (
+                    <div className="blueprint pointer-events-none absolute inset-0" aria-hidden />
+                  )}
+                  <NumberBadge n={pad2(i + 1)} className="absolute start-6 top-6 sm:start-7 sm:top-7" />
+                  <div className="relative">
+                    <h3 className="text-2xl font-bold">{page.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">{page.text}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                      {dict.common.learnMore}
+                      <Arrow className="transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+                    </span>
+                  </div>
+                </LocaleLink>
               </li>
             ))}
           </ul>

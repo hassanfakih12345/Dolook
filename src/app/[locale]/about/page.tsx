@@ -94,6 +94,22 @@ export default async function AboutPage({ params }: Params) {
         </div>
       </section>
 
+      {/* Sectors */}
+      <section className="relative overflow-hidden bg-dolook-dark py-16 text-white sm:py-20">
+        <div className="blueprint pointer-events-none absolute inset-0" aria-hidden />
+        <div className={`${container} relative`}>
+          <SectionHeading invert eyebrow={company.name} title={dict.home.sectorsTitle} />
+          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-white/15 bg-white/15 lg:grid-cols-4">
+            {dict.home.sectors.map((sector, i) => (
+              <li key={sector} className="flex min-h-28 flex-col justify-between gap-3 bg-dolook-dark px-5 py-6">
+                <span className="text-xs font-bold tracking-wider text-white/45">{pad2(i + 1)}</span>
+                <span className="text-base font-semibold sm:text-lg">{sector}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Values */}
       <section className={section}>
         <div className={container}>
