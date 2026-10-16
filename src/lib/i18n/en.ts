@@ -7,7 +7,7 @@ export const en = {
     services: "Contracting, maintenance & operation, steel buildings, and aluminum facade works.",
     projects: "Completed and ongoing DOLOOK projects across the Eastern Province.",
     clients: "Government entities, banks, and leading companies that trust DOLOOK.",
-    certificates: "Commercial registration, classification, Zakat, and VAT documentation.",
+    certificates: "Commercial registration, chamber membership, national address, Zakat, and VAT documentation.",
     contact: "Request a quote or reach DOLOOK's head office in Dammam.",
   },
   nav: {
@@ -136,8 +136,6 @@ export const en = {
       "Commercial Registration",
       "Chamber of Commerce Membership",
       "National Address",
-      "Activities Certificate",
-      "Classification Certificate",
       "Zakat Certificate",
       "VAT Certificate",
     ],
