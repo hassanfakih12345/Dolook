@@ -24,7 +24,9 @@ export async function generateMetadata({ params }: Params) {
     locale,
     path: `/projects/${project.slug}`,
     title: project.name[locale],
-    description: project.summary?.[locale] ?? `${project.type[locale]} — ${project.location[locale]}`,
+    description:
+      project.summary?.[locale] ??
+      [project.type[locale], project.location?.[locale]].filter(Boolean).join(" — "),
     image: project.image,
   });
 }
@@ -38,8 +40,9 @@ export default async function ProjectPage({ params }: Params) {
   const sameDivision = projects.filter((p) => p.slug !== project.slug && p.division === project.division);
   const more = [...sameDivision, ...projects.filter((p) => p.slug !== project.slug && p.division !== project.division)].slice(0, 3);
 
+  // Facts with no published value (location, area) are left out rather than shown as "—".
   const facts: { label: string; value: React.ReactNode }[] = [
-    { label: dict.projects.location, value: project.location[locale] },
+    { label: dict.projects.location, value: project.location?.[locale] },
     { label: dict.projects.type, value: project.type[locale] },
     {
       label: dict.projects.division,
@@ -51,9 +54,9 @@ export default async function ProjectPage({ params }: Params) {
         "—"
       ),
     },
-    { label: dict.projects.area, value: formatArea(project.area, locale) ?? "—" },
+    { label: dict.projects.area, value: formatArea(project.area, locale) },
     { label: dict.projects.status, value: dict.projects[project.status] },
-  ];
+  ].filter((fact) => fact.value != null);
 
   return (
     <div>
@@ -69,7 +72,9 @@ export default async function ProjectPage({ params }: Params) {
           />
           <StatusBadge status={project.status} dict={dict} />
           <h1 className="mt-4 text-4xl font-bold text-white">{project.name[locale]}</h1>
-          <p className="mt-3 text-white/85">{project.location[locale]}</p>
+          <p className="mt-3 text-white/85">
+            {project.location?.[locale] ?? project.type[locale]}
+          </p>
         </div>
       </section>
 

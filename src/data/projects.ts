@@ -10,7 +10,8 @@ export type ProjectImage = { src: string; caption: Localized };
 export type Project = {
   slug: string;
   name: Localized;
-  location: Localized;
+  /** City / site; omitted when not published. */
+  location?: Localized;
   type: Localized;
   /** Built-up area in m², or null when not published. */
   area: number | null;
@@ -31,10 +32,6 @@ export const projects: Project[] = [
     name: {
       ar: "التصميم الداخلي لمكاتب إدارية",
       en: "Corporate Office Interior",
-    },
-    location: {
-      ar: "المملكة العربية السعودية",
-      en: "Saudi Arabia",
     },
     type: {
       ar: "تصميم داخلي وتجهيزات مكتبية",
@@ -78,6 +75,115 @@ export const projects: Project[] = [
       { name: { ar: "المكتب 8", en: "Office 8" }, area: 11.63 },
       { name: { ar: "البوفيه ومساحة العمل المفتوحة", en: "Pantry & open workspace" }, area: 16.73 },
       { name: { ar: "استراحة الموظفات", en: "Women break room" }, area: 5 },
+    ],
+  },
+  {
+    slug: "rch-al-khobar",
+    name: { ar: "مكاتب RCH — الخبر", en: "RCH Offices — Al Khobar" },
+    location: { ar: "الخبر", en: "Al Khobar" },
+    type: { ar: "تجهيزات داخلية وتشطيبات مكتبية", en: "Office Fit-out & Finishing" },
+    area: null,
+    status: "completed",
+    division: "contracting",
+    image: "/projects/rch-al-khobar/01.jpg",
+    featured: true,
+    summary: {
+      ar: "تنفيذ التجهيزات الداخلية الكاملة لمكاتب RCH في الخبر: أسقف جبسية، فواصل وأبواب زجاجية للمكاتب وقاعة الاجتماعات، تكسيات جدارية خشبية وزخرفية، أرضيات موكيت، إضاءة خطية، ومنطقة استراحة وبوفيه مجهّزة.",
+      en: "Complete office fit-out for RCH in Al Khobar: gypsum ceilings, glass partitions and doors for the offices and meeting room, timber and decorative wall cladding, carpet flooring, linear lighting, and a fully equipped lounge and pantry.",
+    },
+    gallery: [
+      { src: "/projects/rch-al-khobar/01.jpg", caption: { ar: "منطقة الاستراحة والبوفيه", en: "Lounge and pantry" } },
+      { src: "/projects/rch-al-khobar/02.jpg", caption: { ar: "قاعة الاجتماعات", en: "Meeting room" } },
+      { src: "/projects/rch-al-khobar/03.jpg", caption: { ar: "مكاتب بفواصل زجاجية", en: "Glass-partitioned offices" } },
+      { src: "/projects/rch-al-khobar/04.jpg", caption: { ar: "منطقة الجلوس المفتوحة", en: "Open seating area" } },
+      { src: "/projects/rch-al-khobar/05.jpg", caption: { ar: "ممر المكاتب", en: "Office corridor" } },
+      { src: "/projects/rch-al-khobar/06.jpg", caption: { ar: "ركن الاجتماعات غير الرسمية", en: "Informal meeting corner" } },
+      { src: "/projects/rch-al-khobar/07.jpg", caption: { ar: "المكاتب الخاصة", en: "Private offices" } },
+      { src: "/projects/rch-al-khobar/08.jpg", caption: { ar: "منطقة الانتظار", en: "Waiting area" } },
+      { src: "/projects/rch-al-khobar/09.jpg", caption: { ar: "الممر الرئيسي", en: "Main corridor" } },
+      { src: "/projects/rch-al-khobar/10.jpg", caption: { ar: "أثناء التنفيذ: الفواصل الزجاجية والأسقف", en: "During works: glass partitions and ceilings" } },
+      { src: "/projects/rch-al-khobar/11.jpg", caption: { ar: "أثناء التنفيذ: تشطيب الأسقف الجبسية", en: "During works: gypsum ceiling finishing" } },
+    ],
+  },
+  {
+    slug: "akt-head-office",
+    name: { ar: "المقر الرئيسي لشركة AKT", en: "AKT Head Office" },
+    type: { ar: "هيكل حديدي وأعمال إنشاء", en: "Steel Structure & Building Works" },
+    area: null,
+    status: "ongoing",
+    division: "steel-buildings",
+    image: "/projects/akt-head-office/01.jpg",
+    featured: true,
+    summary: {
+      ar: "إنشاء المقر الرئيسي لشركة AKT بهيكل حديدي متعدد الطوابق، يشمل تصنيع وتركيب الأعمدة والجسور الفولاذية وصولاً إلى مبنى إداري بواجهات حجرية وزجاجية وفق التصميم المعتمد.",
+      en: "Construction of the AKT head office on a multi-storey steel frame — fabrication and erection of steel columns and beams, leading to an office building with stone and glass facades as per the approved design.",
+    },
+    gallery: [
+      { src: "/projects/akt-head-office/01.jpg", caption: { ar: "التصميم المعتمد للمبنى", en: "Approved building design" } },
+      { src: "/projects/akt-head-office/02.jpg", caption: { ar: "تركيب الهيكل الحديدي", en: "Steel structure erection" } },
+      { src: "/projects/akt-head-office/03.jpg", caption: { ar: "تركيب الأعمدة الفولاذية", en: "Steel column erection" } },
+    ],
+  },
+  {
+    slug: "bassam-petroleum",
+    name: { ar: "شركة صالح ومساعد محمد البسام للمعدات البترولية", en: "Salah & Musaed M. Al-Bassam Petroleum Equipment Co." },
+    type: { ar: "مستودع حديدي وإنشاء كامل", en: "Steel Warehouse & Total Construction" },
+    area: null,
+    status: "completed",
+    division: "steel-buildings",
+    image: "/projects/bassam-petroleum/01.jpg",
+    featured: true,
+    summary: {
+      ar: "إنشاء منشأة صناعية متكاملة لشركة صالح ومساعد محمد البسام للمعدات البترولية: مستودع بهيكل حديدي وألواح معزولة، مبنى إداري، أسوار وبوابات، وأرضيات صناعية مع حفرة صيانة.",
+      en: "A complete industrial facility for Salah & Musaed M. Al-Bassam Petroleum Equipment Co.: an insulated-panel steel warehouse, an office block, boundary walls and gates, and industrial flooring with a service pit.",
+    },
+    gallery: [
+      { src: "/projects/bassam-petroleum/01.jpg", caption: { ar: "المنشأة بعد التسليم", en: "Completed facility" } },
+      { src: "/projects/bassam-petroleum/02.jpg", caption: { ar: "المستودع من الداخل", en: "Warehouse interior" } },
+    ],
+  },
+  {
+    slug: "the-wash-club",
+    name: { ar: "ذا واش كلوب", en: "The Wash Club" },
+    type: { ar: "تجهيز وتشطيب داخلي", en: "Fit-out & Finishing" },
+    area: null,
+    status: "completed",
+    division: "contracting",
+    image: "/projects/the-wash-club/01.jpg",
+    featured: true,
+    summary: {
+      ar: "تجهيز وتشطيب مركز ذا واش كلوب للعناية بالسيارات: تكسيات جدارية بالبورسلان، أرضيات مقاومة بخطوط إرشادية، سقف معلّق بإضاءة سداسية، ميزانين لعرض المنتجات، وتمديدات المياه والكهرباء لمحطات الغسيل.",
+      en: "Fit-out of The Wash Club car-care studio: porcelain wall cladding, resin flooring with lane markings, a suspended ceiling with hexagon lighting, a product-display mezzanine, and water and power runs for the wash stations.",
+    },
+    gallery: [
+      { src: "/projects/the-wash-club/01.jpg", caption: { ar: "صالة الخدمة", en: "Service bay" } },
+      { src: "/projects/the-wash-club/02.jpg", caption: { ar: "السقف والإضاءة السداسية", en: "Ceiling and hexagon lighting" } },
+      { src: "/projects/the-wash-club/03.jpg", caption: { ar: "محطة الغسيل", en: "Wash station" } },
+    ],
+  },
+  {
+    slug: "akt-car-showroom",
+    name: { ar: "معرض سيارات AKT", en: "AKT Car Showroom" },
+    type: { ar: "إنشاء وتجهيز معرض سيارات", en: "Showroom Construction & Fit-out" },
+    area: null,
+    status: "ongoing",
+    division: "contracting",
+    image: "/projects/akt-car-showroom/01.jpg",
+    summary: {
+      ar: "تحويل مبنى تجاري إلى معرض سيارات لشركة AKT: ميزانين بسقف حديدي وخرساني، واجهات زجاجية، أعمال تكييف وكهرباء، أسقف وجدران جبسية، عزل مائي، وتركيب مصعد.",
+      en: "Conversion of a commercial building into a car showroom for AKT: a steel-deck mezzanine, glazed facades, HVAC and electrical works, gypsum ceilings and partitions, waterproofing, and elevator installation.",
+    },
+    gallery: [
+      { src: "/projects/akt-car-showroom/01.jpg", caption: { ar: "واجهة المعرض", en: "Showroom frontage" } },
+      { src: "/projects/akt-car-showroom/02.jpg", caption: { ar: "واجهة المعرض من الزاوية", en: "Showroom corner elevation" } },
+      { src: "/projects/akt-car-showroom/03.jpg", caption: { ar: "صالة العرض: أعمال التكييف والكهرباء", en: "Showroom hall: HVAC and electrical works" } },
+      { src: "/projects/akt-car-showroom/04.jpg", caption: { ar: "سقف الميزانين الحديدي", en: "Mezzanine steel-deck slab" } },
+      { src: "/projects/akt-car-showroom/05.jpg", caption: { ar: "الميزانين والواجهة الزجاجية", en: "Mezzanine and glazed facade" } },
+      { src: "/projects/akt-car-showroom/06.jpg", caption: { ar: "أعمال الجبس للميزانين", en: "Mezzanine gypsum works" } },
+      { src: "/projects/akt-car-showroom/07.jpg", caption: { ar: "تركيب المصعد", en: "Elevator installation" } },
+      { src: "/projects/akt-car-showroom/08.jpg", caption: { ar: "أعمال العزل المائي", en: "Waterproofing works" } },
+      { src: "/projects/akt-car-showroom/09.jpg", caption: { ar: "تشطيب أسقف الطابق العلوي", en: "Upper-floor ceiling finishing" } },
+      { src: "/projects/akt-car-showroom/10.jpg", caption: { ar: "ممر المكاتب أثناء التنفيذ", en: "Office corridor during works" } },
     ],
   },
   {

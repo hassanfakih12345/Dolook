@@ -47,8 +47,7 @@ export function ProjectCard({ project, locale, dict }: Props) {
       <div className="space-y-2 p-5">
         <h3 className="text-lg font-bold text-dolook-dark group-hover:text-dolook">{project.name[locale]}</h3>
         <p className="text-sm text-muted">
-          {project.location[locale]}
-          {division ? ` · ${division.title[locale]}` : ""}
+          {[project.location?.[locale], division?.title[locale]].filter(Boolean).join(" · ")}
         </p>
         <p className="text-sm text-dolook">{project.type[locale]}</p>
       </div>
