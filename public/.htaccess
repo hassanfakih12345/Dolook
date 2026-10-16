@@ -1,9 +1,10 @@
 Options -Indexes
 RewriteEngine On
 
-# Force HTTPS — enable once SSL is active in cPanel (Let's Encrypt)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Force HTTPS (SSL is active in cPanel)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Branded bilingual "page not found"
 ErrorDocument 404 /404.html
