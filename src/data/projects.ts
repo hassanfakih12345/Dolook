@@ -203,7 +203,14 @@ export const projects: Project[] = [
     area: 750,
     status: "completed",
     division: "contracting",
-    image: "/projects/salt.png",
+    image: "/projects/salt-khobar/cover.jpg",
+    summary: {
+      ar: "أعمال التشطيبات المعمارية لمشروع SALT في الخبر بمساحة مبنية 750 م²، شملت الواجهة الخارجية بالحجر والألمنيوم والمساحات الداخلية.",
+      en: "Architectural finishing works for SALT in Al Khobar over a 750 m² built-up area, covering the stone and aluminum frontage and the interior spaces.",
+    },
+    gallery: [
+      { src: "/projects/salt-khobar/01.jpg", caption: { ar: "واجهة مشروع SALT", en: "SALT frontage" } },
+    ],
     featured: true,
   },
   {
@@ -223,7 +230,14 @@ export const projects: Project[] = [
     area: 300,
     status: "completed",
     division: "contracting",
-    image: "/projects/fadl-villa.png",
+    image: "/projects/fadl-al-yahia-villa/01.jpg",
+    summary: {
+      ar: "إنشاء كامل لفيلا سكنية في الدمام بمساحة مبنية 300 م²، من الهيكل الإنشائي حتى التشطيبات النهائية والواجهات.",
+      en: "Total construction of a private villa in Dammam with a 300 m² built-up area, from structure through to final finishes and facades.",
+    },
+    gallery: [
+      { src: "/projects/fadl-al-yahia-villa/01.jpg", caption: { ar: "واجهة الفيلا", en: "Villa elevation" } },
+    ],
     featured: true,
   },
   {
@@ -243,7 +257,14 @@ export const projects: Project[] = [
     area: 3000,
     status: "completed",
     division: "aluminum-facades",
-    image: "/projects/808-square.png",
+    image: "/projects/808-square/01.jpg",
+    summary: {
+      ar: "أعمال التشطيبات المعمارية وواجهات الألمنيوم لمجمع 808 سكوير التجاري على الواجهة البحرية بالدمام، بمساحة مبنية 3,000 م².",
+      en: "Architectural finishing and aluminum facade works for the 808 Square strip mall on the Dammam seafront, with a 3,000 m² built-up area.",
+    },
+    gallery: [
+      { src: "/projects/808-square/01.jpg", caption: { ar: "مجمع 808 سكوير التجاري", en: "808 Square strip mall" } },
+    ],
     featured: true,
   },
   {
@@ -263,7 +284,14 @@ export const projects: Project[] = [
     area: null,
     status: "completed",
     division: "contracting",
-    image: "/projects/al-hasan.png",
+    image: "/projects/al-hasan-commercial/01.jpg",
+    summary: {
+      ar: "الأعمال المدنية والهيكل الخرساني لمركز الحسن التجاري في الدمام، مبنى تجاري متعدد الطوابق.",
+      en: "Civil works and the concrete structure for Al Hasan Commercial Center in Dammam, a multi-storey commercial building.",
+    },
+    gallery: [
+      { src: "/projects/al-hasan-commercial/01.jpg", caption: { ar: "الهيكل الخرساني للمبنى", en: "Concrete structure" } },
+    ],
   },
   {
     slug: "snb-branch-69",
@@ -282,7 +310,14 @@ export const projects: Project[] = [
     area: null,
     status: "completed",
     division: "contracting",
-    image: "/projects/snb-69.png",
+    image: "/projects/snb-branch-69/01.jpg",
+    summary: {
+      ar: "أعمال كهروميكانيكية وتشطيبات معمارية لفرع البنك الأهلي السعودي رقم 69 في الدمام.",
+      en: "MEP and architectural finishing works for Saudi National Bank branch 69 in Dammam.",
+    },
+    gallery: [
+      { src: "/projects/snb-branch-69/01.jpg", caption: { ar: "واجهة الفرع", en: "Branch frontage" } },
+    ],
     featured: true,
   },
   {
@@ -302,7 +337,14 @@ export const projects: Project[] = [
     area: null,
     status: "completed",
     division: "contracting",
-    image: "/projects/snb-41.png",
+    image: "/projects/snb-branch-41/01.jpg",
+    summary: {
+      ar: "أعمال كهروميكانيكية وتشطيبات معمارية لفرع البنك الأهلي السعودي رقم 41 في القطيف.",
+      en: "MEP and architectural finishing works for Saudi National Bank branch 41 in Al Qatif.",
+    },
+    gallery: [
+      { src: "/projects/snb-branch-41/01.jpg", caption: { ar: "الفرع بعد التسليم", en: "Completed branch" } },
+    ],
   },
   {
     slug: "ibrahim-villa",
@@ -321,7 +363,14 @@ export const projects: Project[] = [
     area: 600,
     status: "completed",
     division: "contracting",
-    image: "/projects/ibrahim-villa.png",
+    image: "/projects/ibrahim-villa/01.jpg",
+    summary: {
+      ar: "إنشاء كامل لفيلا سكنية في الدمام بمساحة مبنية 600 م²، تشمل الهيكل والتشطيبات والواجهات الحديثة.",
+      en: "Total construction of a private villa in Dammam with a 600 m² built-up area, including structure, finishes and modern facades.",
+    },
+    gallery: [
+      { src: "/projects/ibrahim-villa/01.jpg", caption: { ar: "واجهة الفيلا", en: "Villa elevation" } },
+    ],
   },
   {
     slug: "azizia-pool",
@@ -340,7 +389,14 @@ export const projects: Project[] = [
     area: 250,
     status: "completed",
     division: "contracting",
-    image: "/projects/azizia-pool.png",
+    image: "/projects/azizia-pool/01.jpg",
+    summary: {
+      ar: "تنفيذ مسبح بمساحة 250 م² في العزيزية بالخبر، يشمل الأعمال الإنشائية والعزل والتكسيات والنوافير.",
+      en: "A 250 m² swimming pool in Al Aziziyah, Al Khobar — structure, waterproofing, cladding and water features.",
+    },
+    gallery: [
+      { src: "/projects/azizia-pool/01.jpg", caption: { ar: "المسبح بعد التسليم", en: "Completed pool" } },
+    ],
   },
   {
     slug: "erb-fitout",
@@ -359,7 +415,14 @@ export const projects: Project[] = [
     area: 4000,
     status: "completed",
     division: "contracting",
-    image: "/projects/erb-fitout.png",
+    image: "/projects/erb-fitout/01.jpg",
+    summary: {
+      ar: "تجهيزات داخلية وتشطيبات معمارية لمكاتب ERB في الخبر بمساحة 4,000 م²، تشمل الأسقف المعلّقة والفواصل الزجاجية والأرضيات.",
+      en: "Office fit-out and architectural finishing for ERB in Al Khobar over 4,000 m², including suspended ceilings, glass partitions and flooring.",
+    },
+    gallery: [
+      { src: "/projects/erb-fitout/01.jpg", caption: { ar: "المكاتب بعد التجهيز", en: "Fitted-out offices" } },
+    ],
     featured: true,
   },
   {
@@ -379,7 +442,14 @@ export const projects: Project[] = [
     area: 350,
     status: "completed",
     division: "contracting",
-    image: "/projects/moc-theatre.png",
+    image: "/projects/moc-theatre/01.jpg",
+    summary: {
+      ar: "تشطيبات معمارية لمسرح وزارة الثقافة في الخبر بمساحة 350 م²، تشمل المسرح والتكسيات الخشبية والصوتية ومقاعد الجمهور.",
+      en: "Architectural finishing for the Ministry of Culture theatre in Al Khobar (350 m²): the stage, timber and acoustic cladding, and audience seating.",
+    },
+    gallery: [
+      { src: "/projects/moc-theatre/01.jpg", caption: { ar: "المسرح بعد التجهيز", en: "Completed theatre" } },
+    ],
   },
   {
     slug: "biryanak",
@@ -398,7 +468,15 @@ export const projects: Project[] = [
     area: 40,
     status: "completed",
     division: "contracting",
-    image: "/projects/biryanak.png",
+    image: "/projects/biryanak/01.jpg",
+    summary: {
+      ar: "إنشاء وتجهيز كامل لمطعم بريانك في الخبر بمساحة 40 م²، من الأعمال الإنشائية حتى الديكور والكاونتر.",
+      en: "Complete build-out of the Biryanak restaurant in Al Khobar (40 m²), from construction works to the interior design and service counter.",
+    },
+    gallery: [
+      { src: "/projects/biryanak/01.jpg", caption: { ar: "كاونتر الطلبات", en: "Order counter" } },
+      { src: "/projects/biryanak/02.jpg", caption: { ar: "صالة الطعام", en: "Dining area" } },
+    ],
   },
   {
     slug: "sipchem-training",
@@ -417,7 +495,15 @@ export const projects: Project[] = [
     area: 1500,
     status: "completed",
     division: "aluminum-facades",
-    image: "/projects/sipchem.png",
+    image: "/projects/sipchem-training/01.jpg",
+    summary: {
+      ar: "تنفيذ السقف الزجاجي (Skylight) والتشطيبات المعمارية لمركز تدريب سبكيم في الخبر بمساحة 1,500 م².",
+      en: "Skylight and architectural finishing works for the Sipchem Training Center in Al Khobar over 1,500 m².",
+    },
+    gallery: [
+      { src: "/projects/sipchem-training/01.jpg", caption: { ar: "السقف الزجاجي (Skylight)", en: "Skylight" } },
+      { src: "/projects/sipchem-training/02.jpg", caption: { ar: "فريق العمل في الموقع", en: "Site team" } },
+    ],
     featured: true,
   },
   {
@@ -437,7 +523,14 @@ export const projects: Project[] = [
     area: 875,
     status: "ongoing",
     division: "steel-buildings",
-    image: "/projects/bassam-factory.png",
+    image: "/projects/bassam-factory/01.jpg",
+    summary: {
+      ar: "إنشاء كامل لمصنع البسام لإعادة تدوير الورق في المدينة الصناعية الثانية بالدمام بمساحة 875 م²، بمبانٍ وهناجر حديدية.",
+      en: "Total construction of the Al Bassam paper recycling factory in Dammam 2nd Industrial City (875 m²), with steel buildings and hangars.",
+    },
+    gallery: [
+      { src: "/projects/bassam-factory/01.jpg", caption: { ar: "التصميم ثلاثي الأبعاد للمصنع", en: "3D design of the factory" } },
+    ],
     featured: true,
   },
   {
@@ -457,7 +550,14 @@ export const projects: Project[] = [
     area: 350,
     status: "ongoing",
     division: "contracting",
-    image: "/projects/kawthar-villa.png",
+    image: "/projects/kawthar-villa/01.jpg",
+    summary: {
+      ar: "إنشاء كامل لفيلا الكوثر في الدمام بمساحة مبنية 350 م² — المشروع حالياً في مرحلة الهيكل وأعمال البلوك.",
+      en: "Total construction of Al Kawthar Villa in Dammam (350 m² built-up) — currently at the structure and blockwork stage.",
+    },
+    gallery: [
+      { src: "/projects/kawthar-villa/01.jpg", caption: { ar: "أعمال الهيكل والبلوك", en: "Structure and blockwork" } },
+    ],
   },
 ];
 

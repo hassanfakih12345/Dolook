@@ -41,7 +41,7 @@ export const divisions: Division[] = [
         "Project execution management",
       ],
     },
-    imageHint: "/projects/fadl-villa.png",
+    imageHint: "/projects/rch-al-khobar/01.jpg",
   },
   {
     slug: "maintenance",
@@ -68,7 +68,7 @@ export const divisions: Division[] = [
         "Corrective maintenance & breakdown response",
       ],
     },
-    imageHint: "/projects/sipchem.png",
+    imageHint: "/projects/erb-fitout/01.jpg",
   },
   {
     slug: "steel-buildings",
@@ -95,7 +95,7 @@ export const divisions: Division[] = [
         "Industrial expansions",
       ],
     },
-    imageHint: "/projects/bassam-factory.png",
+    imageHint: "/projects/akt-head-office/02.jpg",
   },
   {
     slug: "aluminum-facades",
@@ -122,7 +122,7 @@ export const divisions: Division[] = [
         "Architectural glazing systems",
       ],
     },
-    imageHint: "/projects/808-square.png",
+    imageHint: "/projects/808-square/01.jpg",
   },
 ];
 

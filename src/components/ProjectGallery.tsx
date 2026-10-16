@@ -55,16 +55,27 @@ export function ProjectGallery({ images, locale, dict, contain }: Props) {
 
   const current = index === null ? null : images[index];
 
+  // Few images: plain row (never stretched past their real size). Many: mosaic.
+  const simple = contain || images.length <= 3;
+  const layoutClass = contain
+    ? "sm:grid-cols-2"
+    : images.length === 1
+      ? "max-w-3xl"
+      : images.length <= 3
+        ? `sm:grid-cols-${images.length} max-w-5xl`
+        : "grid-cols-2 lg:grid-cols-4";
+
   return (
     <>
-      <ul className={`grid gap-3 ${contain ? "sm:grid-cols-2" : "grid-cols-2 lg:grid-cols-4"}`}>
+      <ul className={`grid gap-3 ${layoutClass}`}>
         {images.map((img, i) => (
-          <li key={img.src} className={contain ? "" : tileClass(i, images.length)}>
+          <li key={img.src} className={simple ? "" : tileClass(i, images.length)}>
+            {/* sm:grid-cols-2 sm:grid-cols-3 — listed so Tailwind generates the dynamic classes above */}
             <button
               type="button"
               onClick={() => setIndex(i)}
               className={`group relative block h-full w-full overflow-hidden border border-line ${
-                contain ? "aspect-[5/4] bg-[#dfdfdf]" : "aspect-[16/10] bg-surface"
+                contain ? "aspect-[5/4] bg-[#dfdfdf]" : simple ? "aspect-[4/3] bg-surface" : "aspect-[16/10] bg-surface"
               }`}
               aria-label={img.caption[locale]}
             >
@@ -72,8 +83,8 @@ export function ProjectGallery({ images, locale, dict, contain }: Props) {
                 src={img.src}
                 alt={img.caption[locale]}
                 fill
-                className={`transition duration-700 group-hover:scale-[1.03] ${contain ? "object-contain p-4" : "object-cover"}`}
-                sizes={contain || i === 0 ? "(max-width:1024px) 100vw, 50vw" : "(max-width:1024px) 50vw, 25vw"}
+                className={`transition duration-700 group-hover:scale-[1.03] ${contain ? "object-contain p-4" : simple ? "object-contain" : "object-cover"}`}
+                sizes={simple || i === 0 ? "(max-width:1024px) 100vw, 50vw" : "(max-width:1024px) 50vw, 25vw"}
               />
               <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dolook-dark/80 to-transparent px-3 pb-2 pt-6 text-start text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
                 {img.caption[locale]}
