@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/i18n/config";
 
 type Props = { locale: Locale; dict: Dictionary };
 
-const fieldClass = "w-full border border-line bg-white px-3 py-2.5 outline-none focus:border-dolook";
+const fieldClass = "min-h-11 w-full border border-line bg-white px-3 py-2.5 outline-none focus:border-dolook";
 
 function Field({
   label,

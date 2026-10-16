@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LocaleLink } from "@/components/LocaleLink";
+import { PageHero } from "@/components/PageHero";
 import { ProjectCard, StatusBadge } from "@/components/ProjectCard";
 import { ProjectGallery } from "@/components/ProjectGallery";
-import { Arrow } from "@/components/ui";
+import { Arrow, Button, buttonClass, container } from "@/components/ui";
 import { getDivision } from "@/data/divisions";
 import { formatArea, getProject, projects } from "@/data/projects";
 import { locales, resolveLocale } from "@/lib/i18n";
@@ -59,48 +58,53 @@ export default async function ProjectPage({ params }: Params) {
   ].filter((fact) => fact.value != null);
 
   return (
-    <div>
-      <section className="relative min-h-[50vh] overflow-hidden">
-        <Image src={project.image} alt="" fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-dolook-dark/75" />
-        <div className="relative mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 pt-10 sm:px-6 lg:px-8">
-          <Breadcrumbs
-            locale={locale}
-            dict={dict}
-            invert
-            items={[{ href: "/projects", label: dict.nav.projects }, { label: project.name[locale] }]}
-          />
+    <>
+      <PageHero
+        locale={locale}
+        dict={dict}
+        crumbs={[{ href: "/projects", label: dict.nav.projects }, { label: project.name[locale] }]}
+        title={project.name[locale]}
+        sub={[project.type[locale], project.location?.[locale]].filter(Boolean).join(" · ")}
+        image={{ src: project.image, alt: project.name[locale] }}
+      >
+        <div className="flex flex-wrap items-center gap-3">
           <StatusBadge status={project.status} dict={dict} />
-          <h1 className="mt-4 text-4xl font-bold text-white">{project.name[locale]}</h1>
-          <p className="mt-3 text-white/85">
-            {project.location?.[locale] ?? project.type[locale]}
-          </p>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          {project.summary ? (
-            <div>
-              <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.overview}</h2>
-              <p className="mt-4 text-lg leading-relaxed text-muted">{project.summary[locale]}</p>
-            </div>
-          ) : (
-            <div className="relative aspect-[16/9] overflow-hidden border border-line bg-surface">
-              <Image
-                src={project.image}
-                alt={project.name[locale]}
-                fill
-                className="object-contain"
-                sizes="(max-width:1024px) 100vw, 55vw"
-              />
-            </div>
+          {division && (
+            <LocaleLink
+              href={`/services/${division.slug}`}
+              locale={locale}
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-white/80 hover:text-white"
+            >
+              {division.title[locale]} <Arrow />
+            </LocaleLink>
           )}
-          <dl className="grid content-start gap-4 sm:grid-cols-2">
-            {facts.map(({ label, value }) => (
-              <div key={label} className="border border-line bg-surface p-5">
+        </div>
+      </PageHero>
+
+      <div className={`${container} py-14 sm:py-16`}>
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+          <div>
+            <h2 className="text-heading font-bold text-dolook-dark">{dict.projects.overview}</h2>
+            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+              {project.summary?.[locale] ?? `${project.type[locale]} — ${project.location?.[locale] ?? ""}`}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button href={`/contact?division=${project.division}`} locale={locale}>
+                {dict.nav.quote}
+              </Button>
+              <LocaleLink href="/projects" locale={locale} className={buttonClass("secondary")}>
+                <Arrow direction="back" /> {dict.projects.allProjects}
+              </LocaleLink>
+            </div>
+          </div>
+          <dl className="grid grid-cols-2 gap-px self-start overflow-hidden border border-line bg-line">
+            {facts.map(({ label, value }, i) => (
+              <div
+                key={label}
+                className={`bg-surface p-4 sm:p-5 ${facts.length % 2 === 1 && i === facts.length - 1 ? "col-span-2" : ""}`}
+              >
                 <dt className="text-xs font-semibold tracking-wide text-dolook uppercase">{label}</dt>
-                <dd className="mt-2 text-base font-semibold text-dolook-dark">{value}</dd>
+                <dd className="mt-2 text-sm font-semibold text-dolook-dark sm:text-base">{value}</dd>
               </div>
             ))}
           </dl>
@@ -109,7 +113,7 @@ export default async function ProjectPage({ params }: Params) {
         {project.gallery && (
           <section className="mt-16">
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.gallery}</h2>
+              <h2 className="text-heading font-bold text-dolook-dark">{dict.projects.gallery}</h2>
               <p className="text-sm text-muted">
                 {project.gallery.length} {dict.projects.images}
                 {project.status === "design" && ` · ${dict.projects.renders}`}
@@ -125,7 +129,7 @@ export default async function ProjectPage({ params }: Params) {
           <section className="mt-16 space-y-16">
             {project.drawings && (
               <div>
-                <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.drawings}</h2>
+                <h2 className="text-heading font-bold text-dolook-dark">{dict.projects.drawings}</h2>
                 <div className="mt-6">
                   <ProjectGallery images={project.drawings} locale={locale} dict={dict} contain />
                 </div>
@@ -133,7 +137,7 @@ export default async function ProjectPage({ params }: Params) {
             )}
             {project.spaces && (
               <div className="max-w-2xl">
-                <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.spaces}</h2>
+                <h2 className="text-heading font-bold text-dolook-dark">{dict.projects.spaces}</h2>
                 <table className="mt-6 w-full border border-line text-sm">
                   <thead className="bg-surface text-xs tracking-wide text-dolook uppercase">
                     <tr>
@@ -167,26 +171,9 @@ export default async function ProjectPage({ params }: Params) {
           </section>
         )}
 
-        <div className="mt-12 flex flex-wrap gap-3">
-          <LocaleLink
-            href="/projects"
-            locale={locale}
-            className="inline-flex items-center gap-2 rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-dolook-dark transition hover:border-dolook/40"
-          >
-            <Arrow direction="back" /> {dict.projects.allProjects}
-          </LocaleLink>
-          <LocaleLink
-            href={`/contact?division=${project.division}`}
-            locale={locale}
-            className="rounded-md bg-dolook px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-dolook-soft"
-          >
-            {dict.nav.quote}
-          </LocaleLink>
-        </div>
-
         {more.length > 0 && (
           <section className="mt-20 border-t border-line pt-12">
-            <h2 className="text-2xl font-bold text-dolook-dark">{dict.projects.more}</h2>
+            <h2 className="text-heading font-bold text-dolook-dark">{dict.projects.more}</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {more.map((p) => (
                 <ProjectCard key={p.slug} project={p} locale={locale} dict={dict} />
@@ -195,6 +182,6 @@ export default async function ProjectPage({ params }: Params) {
           </section>
         )}
       </div>
-    </div>
+    </>
   );
 }

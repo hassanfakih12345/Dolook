@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export const viewport: Viewport = {
   themeColor: "#0b1f3a",
+  viewportFit: "cover",
 };
 
 export default async function LocaleLayout({

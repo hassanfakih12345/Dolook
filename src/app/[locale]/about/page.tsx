@@ -1,7 +1,10 @@
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { LocaleLink } from "@/components/LocaleLink";
-import { Arrow, pad2 } from "@/components/ui";
-import { company } from "@/data/company";
+import Image from "next/image";
+import { QuoteIcon } from "@/components/icons";
+import { PageHero } from "@/components/PageHero";
+import { Button, Ltr, SectionHeading, container, pad2, section } from "@/components/ui";
+import { company, yearsOfExperience } from "@/data/company";
+import { divisions } from "@/data/divisions";
+import { projects } from "@/data/projects";
 import { resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -15,72 +18,130 @@ export async function generateMetadata({ params }: Params) {
 export default async function AboutPage({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);
   const t = dict.about;
+  const stats = [
+    { value: `${yearsOfExperience()}+`, label: dict.home.statsYear },
+    { value: `${company.team}+`, label: dict.home.statsTeam },
+    { value: String(divisions.length), label: dict.home.statsDivisions },
+    { value: `${projects.length}+`, label: dict.nav.projects },
+  ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs locale={locale} dict={dict} items={[{ label: t.title }]} />
-      <p className="text-sm font-semibold text-dolook">01</p>
-      <h1 className="mt-2 text-4xl font-bold text-dolook-dark">{t.title}</h1>
-      <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">{t.intro}</p>
+    <>
+      <PageHero
+        locale={locale}
+        dict={dict}
+        crumbs={[{ label: t.title }]}
+        eyebrow="01"
+        title={t.title}
+        sub={t.intro}
+        image={{ src: "/projects/rch-al-khobar/01.jpg", alt: t.title }}
+      />
 
-      <section id="ceo" className="mt-16 grid scroll-mt-24 gap-10 border-t border-line pt-16 lg:grid-cols-2">
-        <div>
-          <h2 className="text-2xl font-bold text-dolook-dark">{t.ceoTitle}</h2>
-          <p className="mt-2 font-semibold text-dolook">
-            {company.ceo[locale]} — {t.ceoRole}
-          </p>
-          <p className="mt-6 leading-relaxed text-muted">{t.ceoBody}</p>
-        </div>
-        <div className="space-y-8">
-          <div>
-            <h3 className="text-xl font-bold text-dolook">{t.visionTitle}</h3>
-            <p className="mt-3 leading-relaxed text-muted">{t.vision}</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-dolook">{t.missionTitle}</h3>
-            <p className="mt-3 leading-relaxed text-muted">{t.mission}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-16 border-t border-line pt-16">
-        <h2 className="text-2xl font-bold text-dolook-dark">{t.valuesTitle}</h2>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {t.values.map((value, i) => (
-            <li key={value} className="flex gap-4 border border-line bg-surface px-5 py-5">
-              <span className="inline-flex h-9 min-w-9 shrink-0 items-center justify-center bg-dolook text-xs font-bold text-white">
-                {pad2(i + 1)}
-              </span>
-              <span className="text-sm font-medium leading-relaxed text-dolook-dark sm:text-base">{value}</span>
-            </li>
+      {/* Key figures */}
+      <section className="border-b border-line">
+        <dl className={`${container} grid grid-cols-2 lg:grid-cols-4`}>
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={`flex flex-col-reverse gap-1 px-2 py-8 text-center ${i % 2 === 1 ? "border-s border-line" : ""} ${
+                i >= 2 ? "border-t border-line lg:border-t-0" : ""
+              } ${i === 2 ? "lg:border-s" : ""}`}
+            >
+              <dt className="text-sm text-muted">{s.label}</dt>
+              <dd className="text-3xl font-bold text-dolook sm:text-4xl">
+                <Ltr>{s.value}</Ltr>
+              </dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </section>
 
-      <section className="mt-16 border-t border-line pt-16">
-        <h2 className="text-2xl font-bold text-dolook-dark">{t.resourcesTitle}</h2>
-        <p className="mt-4 max-w-3xl leading-relaxed text-muted">{t.resources}</p>
-        <p className="mt-4 text-sm font-semibold text-dolook">
-          {company.team}+ {dict.home.statsTeam.toLowerCase()} · {t.since} {company.founded}
-        </p>
+      {/* CEO message */}
+      <section id="ceo" className={`scroll-mt-24 ${section}`}>
+        <div className={container}>
+          <figure className="relative overflow-hidden bg-dolook-dark p-7 text-white sm:p-10 lg:p-14">
+            <div className="blueprint pointer-events-none absolute inset-0" aria-hidden />
+            <div className="relative grid gap-8 lg:grid-cols-[auto_1fr] lg:gap-12">
+              <QuoteIcon className="h-12 w-12 text-dolook sm:h-16 sm:w-16" />
+              <div>
+                <p className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">{t.ceoTitle}</p>
+                <blockquote className="mt-4 text-lg leading-relaxed text-white/90 sm:text-xl lg:text-2xl lg:leading-relaxed">
+                  {t.ceoBody}
+                </blockquote>
+                <figcaption className="mt-6 border-t border-white/15 pt-5">
+                  <p className="font-bold">{company.ceo[locale]}</p>
+                  <p className="text-sm text-white/70">{t.ceoRole}</p>
+                </figcaption>
+              </div>
+            </div>
+          </figure>
+        </div>
       </section>
 
-      <div className="mt-16 flex flex-wrap gap-3 border-t border-line pt-10">
-        <LocaleLink
-          href="/services"
-          locale={locale}
-          className="inline-flex items-center gap-2 rounded-md bg-dolook px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-dolook-soft"
-        >
-          {dict.services.title} <Arrow />
-        </LocaleLink>
-        <LocaleLink
-          href="/projects"
-          locale={locale}
-          className="inline-flex items-center gap-2 rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-dolook-dark transition hover:border-dolook/40"
-        >
-          {dict.home.ctaProjects} <Arrow />
-        </LocaleLink>
-      </div>
-    </div>
+      {/* Vision & mission */}
+      <section className={`bg-surface ${section}`}>
+        <div className={`${container} grid gap-6 md:grid-cols-2`}>
+          {[
+            { n: "01", title: t.visionTitle, body: t.vision },
+            { n: "02", title: t.missionTitle, body: t.mission },
+          ].map((card) => (
+            <article key={card.title} className="border-t-4 border-dolook bg-white p-7 sm:p-9">
+              <span className="text-sm font-bold text-dolook/60">{card.n}</span>
+              <h2 className="mt-2 text-2xl font-bold text-dolook-dark">{card.title}</h2>
+              <p className="mt-4 leading-relaxed text-muted sm:text-lg">{card.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className={section}>
+        <div className={container}>
+          <SectionHeading eyebrow={t.title} title={t.valuesTitle} />
+          <ul className="mt-10 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+            {t.values.map((value, i) => (
+              <li key={value} className="flex gap-4 bg-white p-5 sm:p-6">
+                <span className="text-2xl font-bold leading-none text-dolook/25">{pad2(i + 1)}</span>
+                <span className="text-sm font-medium leading-relaxed text-dolook-dark sm:text-base">{value}</span>
+              </li>
+            ))}
+            {/* Fill the last row on the 3-column grid so no grey gap shows. */}
+            {t.values.length % 3 !== 0 &&
+              Array.from({ length: 3 - (t.values.length % 3) }).map((_, i) => (
+                <li key={`fill-${i}`} className="hidden bg-white lg:block" aria-hidden />
+              ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Resources */}
+      <section className={`bg-surface ${section}`}>
+        <div className={`${container} grid items-center gap-10 lg:grid-cols-2 lg:gap-16`}>
+          <div>
+            <SectionHeading title={t.resourcesTitle} sub={t.resources} />
+            <p className="mt-6 text-sm font-semibold text-dolook">
+              <Ltr>{company.team}+</Ltr> {dict.home.statsTeam.toLowerCase()} · {t.since} <Ltr>{company.founded}</Ltr>
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button href="/services" locale={locale}>
+                {dict.services.title}
+              </Button>
+              <Button href="/projects" locale={locale} variant="secondary">
+                {dict.home.ctaProjects}
+              </Button>
+            </div>
+          </div>
+          <div className="relative aspect-[16/10] overflow-hidden">
+            <Image
+              src="/projects/akt-head-office/02.jpg"
+              alt={t.resourcesTitle}
+              fill
+              className="object-cover"
+              sizes="(max-width:1024px) 100vw, 50vw"
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

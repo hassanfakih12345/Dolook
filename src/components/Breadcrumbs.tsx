@@ -19,14 +19,14 @@ export function Breadcrumbs({
   const trail: Crumb[] = [{ href: "/", label: dict.nav.home }, ...items];
   const linkClass = invert ? "text-white/70 hover:text-white" : "text-muted hover:text-dolook";
   return (
-    <nav aria-label="Breadcrumb" className="mb-6 text-sm">
+    <nav aria-label="Breadcrumb" className="mb-4 text-sm">
       <ol className="flex flex-wrap items-center gap-2">
         {trail.map((crumb, i) => {
           const last = i === trail.length - 1;
           return (
             <li key={`${crumb.label}-${i}`} className="flex items-center gap-2">
               {crumb.href && !last ? (
-                <LocaleLink href={crumb.href} locale={locale} className={linkClass}>
+                <LocaleLink href={crumb.href} locale={locale} className={`inline-flex min-h-11 items-center ${linkClass}`}>
                   {crumb.label}
                 </LocaleLink>
               ) : (

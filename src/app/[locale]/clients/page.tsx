@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { LocaleLink } from "@/components/LocaleLink";
-import { PageIntro } from "@/components/PageIntro";
-import { Arrow } from "@/components/ui";
+import { PageHero } from "@/components/PageHero";
+import { ArrowLink, container, section } from "@/components/ui";
 import { clients } from "@/data/clients";
 import { resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
@@ -17,38 +16,42 @@ export default async function ClientsPage({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <PageIntro locale={locale} dict={dict} number="04" title={dict.clients.title} sub={dict.clients.sub} />
-      <p className="mt-3 max-w-2xl text-sm text-muted">{dict.clients.note}</p>
-      <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {clients.map((client) => (
-          <li
-            key={client.slug}
-            className="flex flex-col items-center justify-between gap-3 border border-line bg-white px-5 py-5 text-center transition hover:border-dolook/30"
-          >
-            <div className="flex h-16 items-center justify-center">
-              <Image
-                src={client.logo}
-                alt={client.name[locale]}
-                width={180}
-                height={72}
-                className="max-h-14 w-auto max-w-full object-contain"
-              />
-            </div>
-            <span className="text-xs font-medium text-muted">{client.name[locale]}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border border-line bg-surface p-8">
-        <p className="text-lg font-semibold text-dolook-dark">{dict.home.finalCtaTitle}</p>
-        <LocaleLink
-          href="/projects"
-          locale={locale}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-dolook hover:text-dolook-dark"
-        >
-          {dict.home.ctaProjects} <Arrow />
-        </LocaleLink>
-      </div>
-    </div>
+    <>
+      <PageHero
+        locale={locale}
+        dict={dict}
+        crumbs={[{ label: dict.clients.title }]}
+        eyebrow="04"
+        title={dict.clients.title}
+        sub={dict.clients.sub}
+      />
+      <section className={section}>
+        <div className={container}>
+          <p className="max-w-3xl text-base leading-relaxed text-muted sm:text-lg">{dict.clients.note}</p>
+          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line sm:grid-cols-3 lg:grid-cols-5">
+            {clients.map((client) => (
+              <li key={client.slug} className="group flex flex-col items-center justify-between gap-4 bg-white px-4 py-6 text-center sm:px-6 sm:py-8">
+                <div className="flex h-16 w-full items-center justify-center sm:h-20">
+                  <Image
+                    src={client.logo}
+                    alt={client.name[locale]}
+                    width={180}
+                    height={72}
+                    className="max-h-14 w-auto max-w-full object-contain transition group-hover:scale-105 sm:max-h-16"
+                  />
+                </div>
+                <span className="text-xs font-medium leading-snug text-muted sm:text-sm">{client.name[locale]}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-s-4 border-dolook bg-surface p-6 sm:p-8">
+            <p className="text-lg font-semibold text-dolook-dark">{dict.home.featuredSub}</p>
+            <ArrowLink href="/projects" locale={locale}>
+              {dict.home.ctaProjects}
+            </ArrowLink>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

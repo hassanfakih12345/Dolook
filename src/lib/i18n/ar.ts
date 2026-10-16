@@ -161,6 +161,9 @@ export const ar: Dictionary = {
     phoneLabel: "الهاتف",
     selectDivision: "اختر القسم",
     whatsapp: "واتساب",
+    map: "المكتب الرئيسي على الخريطة",
+    openMap: "فتح في خرائط Google",
+    reach: "تواصل مباشر",
     messageTitle: "طلب عرض سعر — دولوك",
   },
   footer: {

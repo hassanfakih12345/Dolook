@@ -159,6 +159,9 @@ export const en = {
     phoneLabel: "Phone",
     selectDivision: "Select a division",
     whatsapp: "WhatsApp",
+    map: "Head office on the map",
+    openMap: "Open in Google Maps",
+    reach: "Reach us directly",
     messageTitle: "DOLOOK quote request",
   },
   footer: {

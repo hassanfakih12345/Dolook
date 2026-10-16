@@ -51,3 +51,57 @@ body {
     linear-gradient(120deg, rgba(11, 31, 58, 0.82) 0%, rgba(11, 31, 58, 0.45) 48%, rgba(11, 31, 58, 0.2) 100%),
     linear-gradient(180deg, transparent 55%, rgba(11, 31, 58, 0.55));
 }
+
+/* ---------- Redesign: shared patterns ---------- */
+
+/* Blueprint grid — thin engineering lines, used on navy surfaces */
+.blueprint {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 75%);
+}
+
+.dot-mesh-light {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* Fluid type scale */
+.text-display {
+  font-size: clamp(2.125rem, 1.4rem + 3.2vw, 4rem);
+  line-height: 1.1;
+}
+.text-title {
+  font-size: clamp(1.875rem, 1.35rem + 2.2vw, 3.25rem);
+  line-height: 1.15;
+}
+.text-heading {
+  font-size: clamp(1.625rem, 1.3rem + 1.3vw, 2.375rem);
+  line-height: 1.2;
+}
+
+:focus-visible {
+  outline: 2px solid var(--dolook-blue-soft);
+  outline-offset: 2px;
+}
+
+/* Horizontal chip rail on small screens */
+.chip-rail {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.chip-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

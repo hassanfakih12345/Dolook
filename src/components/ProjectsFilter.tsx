@@ -12,7 +12,7 @@ type Props = { projects: Project[]; locale: Locale; dict: Dictionary };
 type StatusFilter = "all" | ProjectStatus;
 type DivisionFilter = "all" | DivisionSlug;
 
-const base = "rounded-md border px-3 py-1.5 text-sm font-medium transition";
+const base = "inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md border px-4 text-sm font-medium transition";
 const active = "border-dolook bg-dolook text-white";
 const idle = "border-line bg-white text-muted hover:border-dolook/40";
 
@@ -58,8 +58,13 @@ export function ProjectsFilter({ projects, locale, dict }: Props) {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-4">
-        <div role="group" aria-label={dict.projects.filterStatus} className="flex flex-wrap gap-2">
+      {/* On phones each filter row is a swipeable rail instead of wrapping onto several lines. */}
+      <div className="space-y-3">
+        <div
+          role="group"
+          aria-label={dict.projects.filterStatus}
+          className="chip-rail -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+        >
           {statuses.map(([value, label]) => (
             <button
               key={value}
@@ -73,7 +78,11 @@ export function ProjectsFilter({ projects, locale, dict }: Props) {
           ))}
         </div>
 
-        <div role="group" aria-label={dict.projects.filterDivision} className="flex flex-wrap gap-2">
+        <div
+          role="group"
+          aria-label={dict.projects.filterDivision}
+          className="chip-rail -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+        >
           {(["all", ...divisions.map((d) => d.slug)] as DivisionFilter[]).map((slug) => {
             const label = slug === "all" ? dict.projects.all : divisions.find((d) => d.slug === slug)!.title[locale];
             return (
@@ -84,7 +93,7 @@ export function ProjectsFilter({ projects, locale, dict }: Props) {
                 onClick={() => setDivision(slug)}
                 className={`${base} ${division === slug ? active : idle}`}
               >
-                {label} <span className="opacity-60">({countFor(slug)})</span>
+                {label} <span className="opacity-60">{countFor(slug)}</span>
               </button>
             );
           })}

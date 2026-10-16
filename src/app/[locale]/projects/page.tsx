@@ -1,5 +1,6 @@
-import { PageIntro } from "@/components/PageIntro";
+import { PageHero } from "@/components/PageHero";
 import { ProjectsFilter } from "@/components/ProjectsFilter";
+import { container, section } from "@/components/ui";
 import { projects } from "@/data/projects";
 import { resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
@@ -15,11 +16,18 @@ export default async function ProjectsPage({ params }: Params) {
   const { locale, dict } = await resolveLocale(params);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <PageIntro locale={locale} dict={dict} number="03" title={dict.projects.title} sub={dict.projects.sub} />
-      <div className="mt-10">
+    <>
+      <PageHero
+        locale={locale}
+        dict={dict}
+        crumbs={[{ label: dict.projects.title }]}
+        eyebrow="03"
+        title={dict.projects.title}
+        sub={dict.projects.sub}
+      />
+      <div className={`${container} ${section} !pt-10`}>
         <ProjectsFilter projects={projects} locale={locale} dict={dict} />
       </div>
-    </div>
+    </>
   );
 }
